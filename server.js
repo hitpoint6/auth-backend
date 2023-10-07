@@ -18,7 +18,6 @@ app.use(cors({
 })); // enable all origins to access
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(session({ secret: "Your secret key" }));
 
 
 app.get("/", (req, res) => {
@@ -32,7 +31,7 @@ app.get("/api/auth/status", (req, res) => {
     }
 
     try {
-        // Verify the token with your secret
+        // Verify the token with secret
         verify(token);
 
         // If verification is successful, send authenticated status
@@ -91,17 +90,14 @@ app.post("/api/login", async (req, res) => {
         console.error("Error creating user:", error);
         res.status(500).send("Internal server error");
     }
-
-
 })
-
 
 app.post("/api/logout", (req, res) => {
     res.clearCookie('token'); // Assuming 'token' is the name of your cookie
     res.status(200).send("Logged out");
 })
 
-// Create an authentication middleware
+// Create an authentication middleware to protect backend resources
 function authenticate(req, res, next) {
     const token = req.cookies.token;
     console.log("Token:", token);
