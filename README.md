@@ -10,6 +10,7 @@ Cookie-based authentication backend for ReactJS frontend repo auth-frontend.
     - cors: cross-origin resource sharing
     - JWT: jsonwebtoken
     - bcryptjs: encrypt passwords
+    - MongoDB: for user data storage
 
 ### `npm start`
 
@@ -21,11 +22,9 @@ You may also see any lint errors in the console.
 
 ## Production Plan
 
-    - Add DB for durable user data storage
     - Return user data on successful login
     - Set up HTTPS Flag for cookies for production
     - Better error handling
     - Better logging
-    - Refactor to MVC
     - Email confirmation and Password reset
     - Social login
