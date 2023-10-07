@@ -25,8 +25,8 @@ exports.getStatus = (req, res) => {
 }
 
 const isSecureFlagEnabled = process.env.COOKIE_SECURE_FLAG === 'true';
-console.log("isSecureFlagEnabled:", isSecureFlagEnabled);
-const cookieOptions = { httpOnly: true, secure: isSecureFlagEnabled, sameSite: 'None', expires: new Date(Date.now() + 900000), maxAge: 900000 };
+const cookieOptions = { httpOnly: true, secure: isSecureFlagEnabled, sameSite: process.env.COOKIE_SAME_SITE, expires: new Date(Date.now() + 900000), maxAge: 900000 };
+console.log("cookieOptions:", cookieOptions);
 
 exports.signup = async (req, res) => {
     if (!req.body.email || !req.body.password) {
@@ -82,6 +82,8 @@ exports.login = async (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    res.clearCookie(config.JWTTokenName);
+    const clearCookieOptions = { httpOnly: true, secure: isSecureFlagEnabled, sameSite: process.env.COOKIE_SAME_SITE };
+    res.clearCookie(config.JWTTokenName, clearCookieOptions);
+    console.log("clearCookieOptions:", clearCookieOptions);
     res.status(200).send("Logged out");
 }
