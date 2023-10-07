@@ -24,6 +24,9 @@ exports.getStatus = (req, res) => {
     }
 }
 
+const isSecureFlagEnabled = process.env.COOKIE_SECURE_FLAG === 'true';
+
+
 exports.signup = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         res.status(400).send("Details missing");
@@ -46,7 +49,7 @@ exports.signup = async (req, res) => {
         await newUser.save();
 
         const token = sign({ email: newUser.email });
-        res.cookie(config.JWTTokenName, token, { httpOnly: true, secure: process.env.COOKIE_SECURE_FLAG, sameSite: 'Lax', expires: new Date(Date.now() + 900000), maxAge: 900000 });
+        res.cookie(config.JWTTokenName, token, { httpOnly: true, secure: isSecureFlagEnabled, sameSite: 'Lax', expires: new Date(Date.now() + 900000), maxAge: 900000 });
         res.status(200).send("User created");
     } catch (error) {
         console.error("Error creating user:", error);
@@ -69,7 +72,7 @@ exports.login = async (req, res) => {
             return res.status(404).send("Invalid email or password.");
         }
         const token = sign({ email: user.email });
-        res.cookie(config.JWTTokenName, token, { httpOnly: true, secure: process.env.COOKIE_SECURE_FLAG, sameSite: 'Lax', expires: new Date(Date.now() + 900000), maxAge: 900000 });
+        res.cookie(config.JWTTokenName, token, { httpOnly: true, secure: isSecureFlagEnabled, sameSite: 'Lax', expires: new Date(Date.now() + 900000), maxAge: 900000 });
         res.status(200).send("Successfully signed in!");
     } catch (error) {
         console.error("Error creating user:", error);
