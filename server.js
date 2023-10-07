@@ -7,9 +7,10 @@ const cookieParser = require('cookie-parser'); // Get cookies from client
 require('dotenv').config(); // GET environment variables from .env file
 const { sign, verify } = require('./utils/jwtHelper'); // Creating and verifying tokens
 const { hash, comparePasswords } = require('./utils/bcryptHelper'); // For hashing and verifying passwords
+const config = require('./config');
+const connectToDB = require('./utils/database');
+const User = require('./models/user');
 
-let Users = []
-const port = 3001;
 
 // used to mount middleware
 app.use(cors({
@@ -47,19 +48,21 @@ app.post("/api/signup", async (req, res) => {
         res.status(401).send("Details missing");
         return;
     }
-    const user = Users.filter(user => user.email === req.body.email);
-    if (user.length !== 0) {
+    connectToDB();
+    const user = await User.findOne({ email: req.body.email });
+    if (user !== null) {
         res.status(401).send("User already exists");
         console.log("User already exists");
         return;
     }
 
     try {
-        const newUser = {
+        const newUser = new User({
             email: req.body.email,
-            password: await hash(req.body.password)
-        }
-        Users.push(newUser);
+            password: await hash(req.body.password),
+            createdAt: new Date(),
+        });
+        await newUser.save();
 
         const token = sign({ email: newUser.email });
         res.cookie('token', token, { httpOnly: true }); // Secure flag for HTTPS, adjust accordingly
@@ -74,8 +77,9 @@ app.post("/api/login", async (req, res) => {
     if (!req.body.email || !req.body.password) {
         return res.status(401).send("Details missing");
     }
-    const user = Users.find(user => user.email === req.body.email);
-    if (!user) {
+    connectToDB();
+    const user = await User.findOne({ email: req.body.email });
+    if (user === null) {
         return res.status(401).send("Invalid email or password.");
     }
     try {
@@ -121,6 +125,6 @@ app.get("/dashboard", authenticate, (req, res) => {
     res.send("Welcome to the dashboard!");
 });
 
-app.listen(port, () => {
-    console.log(`Auth app listening at http://localhost:${port}`);
+app.listen(config.port, () => {
+    console.log(`Auth app listening at http://localhost:${config.port}`);
 })
