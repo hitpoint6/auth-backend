@@ -2,8 +2,8 @@
 
 Cookie-based authentication backend. Use together with auth-frontend repo written in React.
 
-<img width="568" alt="Screenshot 2023-10-06 at 10 06 00 PM" src="https://github.com/hitpoint6/auth-backend/assets/62563309/f41c92a3-7567-465d-8cba-83ef51dff89d">
-<img width="567" alt="Screenshot 2023-10-06 at 10 06 18 PM" src="https://github.com/hitpoint6/auth-backend/assets/62563309/8df705b7-e0be-46ca-a44f-fdff0a036487">
+<img width="300" alt="Screenshot 2023-10-06 at 10 06 00 PM" src="https://github.com/hitpoint6/auth-backend/assets/62563309/f41c92a3-7567-465d-8cba-83ef51dff89d">
+<img width="300" alt="Screenshot 2023-10-06 at 10 06 18 PM" src="https://github.com/hitpoint6/auth-backend/assets/62563309/8df705b7-e0be-46ca-a44f-fdff0a036487">
 
 
 ## Packages
