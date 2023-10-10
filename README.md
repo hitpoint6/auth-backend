@@ -1,6 +1,7 @@
-# NodeJS Authentication Backend
+# NodeJS Authentication Backend With Minimum Packages
 
-Cookie-based authentication backend. Use together with [auth-frontend repo](https://github.com/hitpoint6/auth-frontend) written in React.
+This repo is for education purpose to explore how authentication works under the hood using Nodejs. Use together with [auth-frontend repo](https://github.com/hitpoint6/auth-frontend) in React. 
+There will be a plan to build a production version using open source pacakges later.
 
 <img width="300" alt="Screenshot 2023-10-06 at 10 06 00 PM" src="https://github.com/hitpoint6/auth-backend/assets/62563309/f41c92a3-7567-465d-8cba-83ef51dff89d">
 <img width="300" alt="Screenshot 2023-10-06 at 10 06 18 PM" src="https://github.com/hitpoint6/auth-backend/assets/62563309/8df705b7-e0be-46ca-a44f-fdff0a036487">
